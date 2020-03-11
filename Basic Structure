@@ -1,0 +1,9 @@
+org 0x7c00 						; offset
+jmp 0x00000 : start		; indica qual funcao vai comecar
+
+start:								; identificador de funcao
+											;	codigo
+		jmp $							; trava nessa linha (while true)
+
+times 510-($-$$) db 0	; 512 bytes
+dw 0xaa55							; assinatura de bootloader
