@@ -1,0 +1,31 @@
+org 0x7c00;
+jmp 0x0000:start
+
+hello db 'Hello, World!', 13,10,0 ;  reservando espaco na memoria para string
+
+start:
+    xor ax, ax; zerando ax
+    mov ds, ax; zerando ds
+    mov es, ax; zerando es
+
+    mov si, hello;  faz si apontar para inicio de 'hello
+    call print_string
+
+    jmp done
+
+print_string:
+    lodsb;  carrega uma letra de si em al e passa para o proximo char 
+    cmp al,0 ; verifica se chegou ao final da string (equivalente a um \0)
+    je .done
+
+    mov ah, 0eh ;   codigo da instrucao para imprimir um caractere que está em al
+    int 10h ; interrupcao de video 
+    jmp print_string
+    .done:
+        ret; retornna para o start 
+
+done:
+      jmp $         
+
+times 510-($-$$) db 0
+dw 0xaa55
