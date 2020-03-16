@@ -1,0 +1,23 @@
+__le_string:
+    mov bx, string
+    mov cx, tamanho
+
+__loop:
+    cmp cx,0
+    jeq __fim_loop
+
+    call __le
+
+    cmp dl,13
+    jeq _fim_loop
+
+    call __escreve
+
+    mov [bx],dl
+    inc bx
+    dec cx
+
+    jump __loop
+
+__fim_loop:
+    nop
