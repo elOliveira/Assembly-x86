@@ -1,0 +1,84 @@
+prog segment
+      assume cs:prog
+     
+principal  proc
+           xor dx,dx
+           xor bx,bx
+           push cs
+           pop ds    
+           mov ah,9  
+           lea dx,msg0
+           int 21h      
+           call lenum
+           push ax
+           push cs
+           pop ds    
+           mov ah,9  
+           lea dx,msg1
+           int 21h
+           
+           call lenum
+
+       
+       
+divide:      
+                   pop cx
+                   mov bx,ax
+                   mov ax,cx
+                   div  bx
+                   push dx
+                   
+                   cmp dx,0
+                   je ehdiv
+                   
+                   xor dx,dx
+                   xor bx,bx
+                   push cs
+                   pop ds
+                   lea dx,msg3
+                   mov ah,9
+                   int 21h
+                   mov ah,4ch
+                   int 21h
+                   
+ehdiv:            
+                  xor dx,dx
+                  xor bx,bx
+                  mov ah,9
+                  lea dx,msg2  
+                  int 21h
+                  mov ah,4ch
+                   int 21h
+principal endp
+lenum   proc
+        push       bx
+        push       cx
+        mov        ax,0    ; Numero lido em ax
+        mov        cx,10    ; cx=10 para dividir por dez
+ler:    push       ax
+        mov        ah,1
+        int          21h    ; Le um digito
+        mov        bl,al    ; Guarda o digito em BL
+        pop         ax      ; Numero em AX
+        sub         bl,'0'    ; Converte o digito de ASCII para BCD
+        jb           lesai    ; Se nao é digito sai
+        cmp        bl,9
+        ja           lesai    ; Maior que 9 tambem nao é digito
+        mul         cx    ; Multiplica por dez
+        mov        bh,0
+        add         ax,bx    ; Soma com o digito
+        jmp         ler
+lesai: pop    cx
+        pop    bx
+        ret
+
+lenum   endp                  
+msg0    db      10,'digite o primeiro numero: $'
+msg1    db      10,'digite o segundo numero:$'
+msg2    db      10,'divisivel$'
+msg3    db      10,'naodivisivel$'  
+prog ends
+pilha segment stack
+espaco db 200 dup('pilha!!!')
+pilha ends
+end  
