@@ -10,3 +10,6 @@ Folder created with the objective of organizing the main codes focused on the di
     //  We need to run the asm code in qemu
     times 510-($-$$) db 0                
     dw 0xaa55
+
+# INT 
+    -> https://www.cin.ufpe.br/~eaa3/Arquivos/Assembly/interrupcoes_pc.pdf
