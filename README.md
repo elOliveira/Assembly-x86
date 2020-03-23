@@ -14,6 +14,6 @@ Folder created with the objective of organizing the main codes focused on the di
     times 510-($-$$) db 0                
     dw 0xaa55
 
-# INT 
+# ASM INTERRUPTS
     -> https://www.cin.ufpe.br/~eaa3/Arquivos/Assembly/interrupcoes_pc.pdf
     -> https://pt.wikibooks.org/wiki/Programar_em_Assembly_com_GAS/Interrupções_do_BIOS
