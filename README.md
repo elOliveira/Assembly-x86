@@ -7,7 +7,10 @@ Folder created with the objective of organizing the main codes focused on the di
     qemu-system-i386 binaryArchiev.bin            // Running through a virtual machine (For security reasons)
     
 # Bootloader Signature:                           
-    //  We need to run the asm code in qemu
+    //  We need to run the asm code in qemu    
+    org 0x7c00;
+    jmp 0x0000:start
+     ~ code ...
     times 510-($-$$) db 0                
     dw 0xaa55
 
